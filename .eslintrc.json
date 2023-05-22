@@ -11,5 +11,8 @@
         "sourceType": "module"
     },
     "rules": {
-    }
+        "linebreak-style": "off",
+        "require-jsdoc": "off"
+    },
+    "import/no-extraneous-dependencies": ["error", {"includeInternal": true, "includeTypes": true}]
 }
