@@ -16,6 +16,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  batch:{
+    type:String,
+    required:true,
+  },
 });
 
 export default model('students', userSchema);
