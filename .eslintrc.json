@@ -12,7 +12,10 @@
     },
     "rules": {
         "linebreak-style": "off",
-        "require-jsdoc": "off"
-    },
-    "import/no-extraneous-dependencies": ["error", {"includeInternal": true, "includeTypes": true}]
+        "require-jsdoc": "off",
+        "import/no-extraneous-dependencies": ["error", {"includeInternal": true, "includeTypes": true}],
+        "import/extensions": ["off", "never", { "svg": "always" }],
+        "no-console": "off"
+    }
+    
 }
