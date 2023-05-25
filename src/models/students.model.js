@@ -6,6 +6,7 @@ const userSchema = new Schema({
     type: String,
   },
   isLeader: {
+    type: Boolean,
     default: false,
   },
   hashPassword: {
