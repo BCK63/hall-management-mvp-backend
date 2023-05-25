@@ -6,13 +6,13 @@ import dbConnection from './db.js';
 
 dotenv.config({ path: '.env' });
 
-dbConnection();
+dbConnection().then(() => {
+  const server = createServer(app);
+  const port = process.env.PORT || 3000;
 
-const server = createServer(app);
-const port = process.env.PORT || 3000;
+  const io = new Server(server);
+  io.on('connection', () => console.log('connected'));
 
-const io = new Server(server);
-io.on('connection', () => console.log('connected'));
-
-server.listen(port, () => console.log(`listening on ${port}`));
-server.on('error', (err) => console.error(err));
+  server.listen(port, () => console.log(`listening on ${port}`));
+  server.on('error', (err) => console.error(err));
+}).catch(console.log);
