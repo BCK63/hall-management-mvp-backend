@@ -1,12 +1,12 @@
 import { compare, hashSync } from 'bcrypt';
 import Jwt from 'jsonwebtoken';
-import { createNewStudent, findByStudentByEmail } from '../repositories/auth.repository.js';
+import { createNewStudent, findStudentByEmail } from '../repositories/auth.repository.js';
 import UserNotFound from '../utils/errors/userNotFound.js';
 import UnAuthorizedException from '../utils/errors/UnAuthorized.js';
 import BadRequest from '../utils/errors/badRequest.js';
 
 export const studentLogin = async ({ email, password }) => {
-  const student = await findByStudentByEmail(email);
+  const student = await findStudentByEmail(email);
   if (!student) throw new UserNotFound();
   const isMatch = await compare(password, student.hashPassword);
   if (!isMatch) throw new UnAuthorizedException('Invalid email or password');
@@ -20,7 +20,7 @@ export const studentLogin = async ({ email, password }) => {
 };
 
 export const studentSignup = async (student) => {
-  const isExist = await findByStudentByEmail(student.email);
+  const isExist = await findStudentByEmail(student.email);
   if (isExist) throw new BadRequest('Email already exist with another user');
   const hashPassword = hashSync(student.password, 10);
   const res = await createNewStudent({ ...student, hashPassword, password: null });
