@@ -17,7 +17,8 @@
         "import/extensions": ["off", "never", { "svg": "always" }],
         "no-console": "off",
         "consistent-return": "off",
-        "arrow-parens":"off"
+        "arrow-parens":"off",
+        "arrow-body-style":"off"
     }
     
 }
