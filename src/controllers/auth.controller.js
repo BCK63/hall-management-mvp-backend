@@ -2,7 +2,6 @@ import { studentLogin, studentSignup } from '../services/auth.services.js';
 import BadRequest from '../utils/errors/badRequest.js';
 import catchAsync from '../utils/errors/catchAsync.js';
 import { success } from '../utils/responseApi.js';
-import ok from '../utils/responses/ok.js';
 import schema from '../utils/validations/auth.schema.js';
 
 export const login = catchAsync(async (req, res) => {
