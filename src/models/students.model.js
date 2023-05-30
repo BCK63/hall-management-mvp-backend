@@ -12,6 +12,7 @@ const userSchema = new Schema({
   hashPassword: {
     required: true,
     type: String,
+    select: false,
   },
   email: {
     type: String,

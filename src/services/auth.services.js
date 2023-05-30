@@ -1,6 +1,6 @@
 import { compare, hashSync } from 'bcrypt';
 import Jwt from 'jsonwebtoken';
-import { createNewStudent, findStudentByEmail } from '../repositories/auth.repository.js';
+import { createNewStudent, findStudentByEmail } from '../repositories/student.repository.js';
 import UserNotFound from '../utils/errors/userNotFound.js';
 import UnAuthorizedException from '../utils/errors/UnAuthorized.js';
 import BadRequest from '../utils/errors/badRequest.js';
