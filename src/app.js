@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
+import layoutRoutes from './routes/layout.routes.js';
 import globalErrorHandler from './utils/errors/globalError.js';
 import NotFound from './utils/errors/404.js';
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.json({ success: true }));
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/layouts', layoutRoutes);
 
 app.use('*', NotFound);
 
