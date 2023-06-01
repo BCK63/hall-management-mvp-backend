@@ -18,7 +18,8 @@
         "no-console": "off",
         "consistent-return": "off",
         "arrow-parens":"off",
-        "arrow-body-style":"off"
+        "arrow-body-style":"off",
+        "no-param-reassign": "off"
     }
     
 }
