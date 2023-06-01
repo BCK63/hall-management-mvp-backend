@@ -10,7 +10,7 @@ router
 
 router
   .route('/:layoutId')
-  .get()
+  .get(ctrl.getLayout)
   .put(ctrl.updateLayout)
   .delete(ctrl.deleteLayout);
 

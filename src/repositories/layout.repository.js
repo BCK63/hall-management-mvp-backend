@@ -9,3 +9,5 @@ export const updateLayoutById = async (id, updates) => {
 };
 
 export const deleteLayoutById = async (id) => layoutModel.findByIdAndDelete(id);
+
+export const getLayoutById = async (id) => layoutModel.findById(id);

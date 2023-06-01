@@ -25,3 +25,9 @@ export const deleteLayout = catchAsync(async (req, res) => {
   const deletedLayout = await layoutServices.deleteLayout(layoutId);
   res.json(success('layout deleted', { layout: deletedLayout }));
 });
+
+export const getLayout = catchAsync(async (req, res) => {
+  const { layoutId } = req.params;
+  const layout = await layoutServices.getLayout(layoutId);
+  res.json(success('layout', { layout }));
+});
