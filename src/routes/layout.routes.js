@@ -10,6 +10,8 @@ router
 
 router
   .route('/:layoutId')
-  .put(ctrl.updateLayout);
+  .get()
+  .put(ctrl.updateLayout)
+  .delete(ctrl.deleteLayout);
 
 export default router;

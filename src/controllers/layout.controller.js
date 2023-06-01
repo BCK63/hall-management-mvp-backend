@@ -19,3 +19,9 @@ export const updateLayout = catchAsync(async (req, res) => {
   const updatedLayout = await layoutServices.updateLayout(layoutId, name, slots);
   res.json(success('layout updated', { layout: updatedLayout }));
 });
+
+export const deleteLayout = catchAsync(async (req, res) => {
+  const { layoutId } = req.params;
+  const deletedLayout = await layoutServices.deleteLayout(layoutId);
+  res.json(success('layout deleted', { layout: deletedLayout }));
+});

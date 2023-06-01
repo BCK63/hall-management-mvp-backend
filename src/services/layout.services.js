@@ -7,3 +7,5 @@ export const getAllLayouts = async () => layoutRepo.getAllLayouts();
 export const updateLayout = async (id, name, slots) => {
   return layoutRepo.updateLayoutById(id, { name, slots });
 };
+
+export const deleteLayout = async (id) => layoutRepo.deleteLayoutById(id);

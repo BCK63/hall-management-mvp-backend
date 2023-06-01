@@ -7,3 +7,5 @@ export const getAllLayouts = async () => layoutModel.find();
 export const updateLayoutById = async (id, updates) => {
   return layoutModel.findByIdAndUpdate(id, updates, { new: true });
 };
+
+export const deleteLayoutById = async (id) => layoutModel.findByIdAndDelete(id);
