@@ -1,4 +1,5 @@
 import { createNewBatch } from '../repositories/batch.repository.js';
+import ConflictException from '../utils/errors/conflictException.js';
 
 export const batchCreation = async (batch) => {
   try {
@@ -6,7 +7,7 @@ export const batchCreation = async (batch) => {
     return response;
   } catch (error) {
     if (error.code === 11000) {
-      throw new Error('batch already exists');
+      throw new ConflictException('batch already exists');
     }
     throw new Error(error);
   }
