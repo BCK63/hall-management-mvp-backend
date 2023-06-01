@@ -7,4 +7,9 @@ router
   .route('/')
   .post(ctrl.createLayout)
   .get(ctrl.getAllLayouts);
+
+router
+  .route('/:layoutId')
+  .put(ctrl.updateLayout);
+
 export default router;

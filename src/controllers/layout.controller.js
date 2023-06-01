@@ -12,3 +12,10 @@ export const getAllLayouts = catchAsync(async (req, res) => {
   const layouts = await layoutServices.getAllLayouts();
   res.json(success('layouts', { layouts }));
 });
+
+export const updateLayout = catchAsync(async (req, res) => {
+  const { name, slots } = req.body;
+  const { layoutId } = req.params;
+  const updatedLayout = await layoutServices.updateLayout(layoutId, name, slots);
+  res.json(success('layout updated', { layout: updatedLayout }));
+});
