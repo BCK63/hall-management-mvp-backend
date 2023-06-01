@@ -3,6 +3,8 @@ import * as ctrl from '../controllers/layout.controller.js';
 
 const router = Router();
 
-router.post('/', ctrl.createLayout);
-
+router
+  .route('/')
+  .post(ctrl.createLayout)
+  .get(ctrl.getAllLayouts);
 export default router;

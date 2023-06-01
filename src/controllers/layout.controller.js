@@ -8,4 +8,7 @@ export const createLayout = catchAsync(async (req, res) => {
   res.status(201).json(success('layout created', { layout }));
 });
 
-export const sample = {};
+export const getAllLayouts = catchAsync(async (req, res) => {
+  const layouts = await layoutServices.getAllLayouts();
+  res.json(success('layouts', { layouts }));
+});
