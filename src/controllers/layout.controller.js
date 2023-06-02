@@ -8,4 +8,26 @@ export const createLayout = catchAsync(async (req, res) => {
   res.status(201).json(success('layout created', { layout }));
 });
 
-export const sample = {};
+export const getAllLayouts = catchAsync(async (req, res) => {
+  const layouts = await layoutServices.getAllLayouts();
+  res.json(success('layouts', { layouts }));
+});
+
+export const updateLayout = catchAsync(async (req, res) => {
+  const { name, slots } = req.body;
+  const { layoutId } = req.params;
+  const updatedLayout = await layoutServices.updateLayout(layoutId, name, slots);
+  res.json(success('layout updated', { layout: updatedLayout }));
+});
+
+export const deleteLayout = catchAsync(async (req, res) => {
+  const { layoutId } = req.params;
+  const deletedLayout = await layoutServices.deleteLayout(layoutId);
+  res.json(success('layout deleted', { layout: deletedLayout }));
+});
+
+export const getLayout = catchAsync(async (req, res) => {
+  const { layoutId } = req.params;
+  const layout = await layoutServices.getLayout(layoutId);
+  res.json(success('layout', { layout }));
+});
