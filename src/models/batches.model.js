@@ -20,6 +20,16 @@ const batchSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'admins',
   },
+  isFineEnabled: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
+  isCommissionEnabled: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
 });
 
 export default model('batches', batchSchema);
