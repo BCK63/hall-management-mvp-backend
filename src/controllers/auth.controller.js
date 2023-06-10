@@ -1,4 +1,4 @@
-import { studentLogin, studentSignup } from '../services/auth.services.js';
+import { refreshToken, studentLogin, studentSignup } from '../services/auth.services.js';
 import BadRequest from '../utils/errors/badRequest.js';
 import catchAsync from '../utils/errors/catchAsync.js';
 import { success } from '../utils/responseApi.js';
@@ -20,6 +20,12 @@ export const signup = catchAsync(async (req, res) => {
     name, email, password, batch,
   });
   if (error) throw new BadRequest(error.message);
-  const student = await studentSignup(value);
-  res.status(200).json(success('OK', { student }));
+  await studentSignup(value);
+  res.status(201).json(success('CREATED'));
+});
+
+export const tokenRefresh = catchAsync(async (req, res) => {
+  const refreshTokenFromHeaders = req.headers.authorization.replace('Bearer', '').replace(/"/g, '').trim();
+  const token = await refreshToken(refreshTokenFromHeaders);
+  res.status(200).json(success('OK', { token }));
 });

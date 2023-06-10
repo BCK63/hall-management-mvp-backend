@@ -4,6 +4,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import layoutRoutes from './routes/layout.routes.js';
 import batchRoutes from './routes/batch.routes.js';
+import userRoutes from './routes/user.routes.js';
 import globalErrorHandler from './utils/errors/globalError.js';
 import NotFound from './utils/errors/404.js';
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => res.json({ success: true }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/layouts', layoutRoutes);
 app.use('/api/v1/batches', batchRoutes);
+app.use('/api/v1/users', userRoutes);
 
 app.use('*', NotFound);
 

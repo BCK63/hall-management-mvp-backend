@@ -5,5 +5,5 @@ const router = Router();
 
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
-
+router.post('/refresh', controller.tokenRefresh);
 export default router;
