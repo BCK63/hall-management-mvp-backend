@@ -20,8 +20,13 @@ const fines = new Schema({
 }, { _id: false, timestamps: true });
 
 const fineSchema = new Schema({
-  batchId: {
+  _id: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
+  batchCode: {
     type: String,
+    unique: true,
     required: true,
   },
   fines: {
@@ -29,5 +34,7 @@ const fineSchema = new Schema({
     required: true,
   },
 });
+
+fineSchema.index({ 'fines.studentId': 1 });
 
 export default model('fines', fineSchema);

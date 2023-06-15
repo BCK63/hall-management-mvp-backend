@@ -14,7 +14,6 @@ export const studentLogin = async ({ email, password }) => {
   if (!student) throw new UserNotFound();
   const isMatch = await compare(password, student.hashPassword);
   if (!isMatch) throw new UnAuthorizedException('Invalid email or password');
-  // generating jwt token and passing payload
   const accessToken = generateAccessToken(student.email);
   const refreshToken = generateRefreshToken(student.email);
   return { accessToken, refreshToken };

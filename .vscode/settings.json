@@ -1,0 +1,7 @@
+{
+  "editor.cursorStyle": "line",
+  "editor.autoClosingDelete": "auto",
+  "editor.tokenColorCustomizations": {
+    "comments": "#FF0000"
+  }
+}
