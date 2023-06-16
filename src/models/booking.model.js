@@ -1,7 +1,18 @@
 import { Schema, model } from 'mongoose';
 
 const bookingModel = new Schema({
-  bookedBy: { batch: String, coordinator: Schema.Types.ObjectId },
+  batch: {
+    type: String,
+    required: true,
+  },
+  bookedBy: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   time: { start: String, end: String },
 }, { timestamps: true });
 
