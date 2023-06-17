@@ -1,7 +1,21 @@
-import finesModel from '../models/fines.model.js';
+import FinesModel from '../models/fines.model.js';
 
-export const createFineTable = (batchId, batchCode) => {
-  return finesModel.create({ _id: batchId, batchCode, fines: [] });
+export const createFineTable = (batchCode) => {
+  return FinesModel.create({ batchCode, fines: [] });
 };
 
-export const sample = {};
+export const addStudentToFineTable = (batchCode, studentId) => {
+  return FinesModel.findOneAndUpdate(
+    {
+      batchCode,
+    },
+    {
+      $addToSet: {
+        fines: {
+          studentId, fine: 0, commission: 0, lastAssignedBy: [],
+        },
+      },
+    },
+    { new: true },
+  );
+};

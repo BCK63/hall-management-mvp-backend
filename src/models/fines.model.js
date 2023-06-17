@@ -20,13 +20,10 @@ const fines = new Schema({
 }, { _id: false, timestamps: true });
 
 const fineSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
   batchCode: {
     type: String,
     unique: true,
+    trim: true,
     required: true,
   },
   fines: {
