@@ -8,8 +8,9 @@ export const Booking = catchAsync(async (req, res) => {
     bookedBy,
     isAdmin,
     time,
+    date,
   } = req.body;
-  const booking = await bookingServices.doNewBooking(batch, bookedBy, isAdmin, time);
+  const booking = await bookingServices.doNewBooking(batch, bookedBy, isAdmin, time, date);
   res.status(201).json(success('Booking Succesfull', { booking }));
 });
 
@@ -28,4 +29,10 @@ export const deleteBooking = catchAsync(async (req, res) => {
   const { bookingId } = req.params;
   const deletedBooking = await bookingServices.deleteBooking(bookingId);
   res.json(success('Booking deleted', { booking: deletedBooking }));
+});
+
+export const getBookingsByDate = catchAsync(async (req, res) => {
+  const { date } = req.params;
+  const filteredBookings = await bookingServices.filterBookings(date);
+  res.json(success(`Bookings of ${date}`, { bookings: filteredBookings }));
 });

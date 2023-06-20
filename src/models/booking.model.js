@@ -14,6 +14,10 @@ const bookingModel = new Schema({
     default: false,
   },
   time: { start: String, end: String },
+  date: {
+    type: Date,
+    required: true,
+  },
 }, { timestamps: true });
 
 export default model('bookings', bookingModel);
