@@ -2,11 +2,11 @@ import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import app from '../app.js';
-import dbConnection from './db.js';
+import connectDb from './db.js';
 
 dotenv.config({ path: '.env' });
 
-dbConnection().then(() => {
+connectDb().then(() => {
   const server = createServer(app);
   const port = process.env.PORT || 3000;
 

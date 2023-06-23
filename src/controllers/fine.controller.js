@@ -1,6 +1,6 @@
-import * as fineServices from '../services/fines.services';
-import catchAsync from '../utils/errors/catchAsync';
-import { success } from '../utils/responseApi';
+import * as fineServices from '../services/fines.services.js';
+import catchAsync from '../utils/errors/catchAsync.js';
+import { success } from '../utils/responseApi.js';
 
 export const getFineTable = catchAsync(async (req, res) => {
   const { batchCode } = req.params;
