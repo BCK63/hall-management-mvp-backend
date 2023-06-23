@@ -2,8 +2,9 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/:batch');
-router.post('/:batch');
-router.delete('/:batch');
+router.route('/:batch')
+  .get()
+  .post()
+  .delete();
 
 export default router;

@@ -11,7 +11,7 @@ export const createBatch = async (createBatchDTO) => {
     if (error.code === 11000) {
       throw new ConflictException('batch already exists');
     }
-    throw new Error(error);
+    throw error;
   }
 };
 
