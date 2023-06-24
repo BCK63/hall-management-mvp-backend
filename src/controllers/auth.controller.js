@@ -1,3 +1,4 @@
+import { adminLoginService, adminSignupService } from '../services/admin.auth.services.js';
 import { refreshToken, studentLogin, studentSignup } from '../services/auth.services.js';
 import BadRequest from '../utils/errors/badRequest.js';
 import catchAsync from '../utils/errors/catchAsync.js';
@@ -20,12 +21,25 @@ export const signup = catchAsync(async (req, res) => {
     name, email, password, batch,
   });
   if (error) throw new BadRequest(error.message);
-  await studentSignup(value);
-  res.status(201).json(success('CREATED'));
+  const newStudent = await studentSignup(value);
+  res.status(201).json(success('CREATED', { newStudent }));
 });
 
 export const tokenRefresh = catchAsync(async (req, res) => {
   const refreshTokenFromHeaders = req.headers.authorization.replace('Bearer', '').replace(/"/g, '').trim();
   const token = await refreshToken(refreshTokenFromHeaders);
   res.status(200).json(success('OK', { token }));
+});
+
+// Admin Authentication
+
+export const adminLogin = catchAsync(async (req, res) => {
+  const { email, password } = req.body;
+  const adminTokens = await adminLoginService(email, password);
+  res.status(200).json(success('OK', adminTokens));
+});
+
+export const adminSignup = catchAsync(async (req, res) => {
+  await adminSignupService(req.body);
+  res.status(200).json(success('OK'));
 });

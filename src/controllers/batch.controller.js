@@ -10,7 +10,7 @@ export const createBatch = catchAsync(async (req, res) => {
     batchCode, trainer,
   });
   if (error) throw new BadRequest(error.message);
-  const batch = await batchServices.batchCreation(value);
+  const batch = await batchServices.createBatch(value);
   res.status(200).json(success('OK', { batch }));
 });
 

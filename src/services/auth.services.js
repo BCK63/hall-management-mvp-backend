@@ -1,5 +1,6 @@
 import { compare, hashSync } from 'bcrypt';
 import { createNewStudent, findStudentByEmail, findStudentWithPass } from '../repositories/student.repository.js';
+import * as finesRepo from '../repositories/fines.repository.js';
 import UserNotFound from '../utils/errors/userNotFound.js';
 import UnAuthorizedException from '../utils/errors/UnAuthorized.js';
 import BadRequest from '../utils/errors/badRequest.js';
@@ -14,7 +15,6 @@ export const studentLogin = async ({ email, password }) => {
   if (!student) throw new UserNotFound();
   const isMatch = await compare(password, student.hashPassword);
   if (!isMatch) throw new UnAuthorizedException('Invalid email or password');
-  // generating jwt token and passing payload
   const accessToken = generateAccessToken(student.email);
   const refreshToken = generateRefreshToken(student.email);
   return { accessToken, refreshToken };
@@ -24,8 +24,9 @@ export const studentSignup = async (student) => {
   const isExist = await findStudentByEmail(student.email);
   if (isExist) throw new BadRequest('Email already exist with another user');
   const hashPassword = hashSync(student.password, 10);
-  const res = await createNewStudent({ ...student, hashPassword, password: null });
-  return res;
+  const newStudent = await createNewStudent({ ...student, hashPassword, password: null });
+  await finesRepo.addStudentToFineTable(newStudent.batch, newStudent._id, newStudent.name);
+  return newStudent;
 };
 
 export const refreshToken = async (token) => {

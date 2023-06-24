@@ -25,6 +25,12 @@ const schema = {
     }),
   }),
 
+  adminInviteSchema: Joi.object({
+    email: Joi.string().email().required().messages({
+      'any.required': 'Invitation Email is required',
+    }),
+  }),
+
 };
 
 export default schema;
