@@ -1,6 +1,4 @@
 import FinesModel from '../models/fines.model.js';
-import NotFoundException from '../utils/errors/NotFoundError.js';
-import UserNotFound from '../utils/errors/userNotFound.js';
 
 export const createFineTable = (batchCode) => {
   return FinesModel.create({ batchCode, fines: [] });
@@ -14,7 +12,7 @@ export const addStudentToFineTable = (batchCode, studentId) => {
     {
       $addToSet: {
         fines: {
-          studentId, fine: 0, commission: 0, lastAssignedBy: [],
+          studentId, fine: 0, commission: 0, lastAssignedBy: null,
         },
       },
     },
@@ -22,7 +20,7 @@ export const addStudentToFineTable = (batchCode, studentId) => {
   );
 };
 
-export const getFineTableByBatchCode = (batchCode) => {
+export const getFineTableByBatchCode = async (batchCode) => {
   return FinesModel.findOne({ batchCode });
 };
 
@@ -31,62 +29,26 @@ export const assignFine = async (batchCode, assignedTo, assignedBy) => {
     { batchCode },
     {
       $inc: { 'fines.$[assignedBy].commission': 5, 'fines.$[assignedTo].fine': 10 },
-      $push: { 'fines.$[assignedTo].lastAssignedBy': assignedBy },
+      $set: { 'fines.$[assignedTo].lastAssignedBy': assignedBy },
     },
-    { arrayFilters: [{ 'assignedBy.studentId': assignedBy }, { 'assignedTo.studentId': assignedTo }] },
-    { new: true },
+    { arrayFilters: [{ 'assignedBy.studentId': assignedBy }, { 'assignedTo.studentId': assignedTo }], new: true },
   );
 };
 
-export const reduceFine = async (batchCode, reduceFineOf) => {
-  const session = await FinesModel.startSession();
-  session.startTransaction();
+export const getToReduceFineEntry = async (batchCode, reduceFineOf) => {
+  return FinesModel.findOne(
+    { batchCode, 'fines.studentId': reduceFineOf },
+    { 'fines.$': 1 },
+  );
+};
 
-  try {
-    const updatedFineTable = await FinesModel.findOneAndUpdate(
-      { batchCode, 'fines.studentId': reduceFineOf },
-      {
-        $inc: {
-          'fines.$.fine': -10,
-        },
-      },
-      { new: true, session },
-    );
-
-    if (!updatedFineTable) {
-      throw new NotFoundException('Fine table not found');
-    }
-
-    const fineEntry = updatedFineTable.fines.find(fine => fine.studentId === reduceFineOf);
-    if (!fineEntry) {
-      throw new UserNotFound('Student not found');
-    }
-
-    const lastAssignedBy = fineEntry.lastAssignedBy.pop();
-    if (!lastAssignedBy) {
-      throw new Error('Can only reduce maximum number of three times');
-    }
-
-    const updatedCommissionTable = await FinesModel.findOneAndUpdate(
-      { batchCode, 'fines.studentId': lastAssignedBy },
-      {
-        $inc: {
-          'fines.$.commission': -5,
-        },
-      },
-      { new: true, session },
-    );
-
-    if (!updatedCommissionTable) {
-      throw new UserNotFound('Last assignee not found');
-    }
-
-    await session.commitTransaction();
-    return updatedCommissionTable;
-  } catch (error) {
-    await session.abortTransaction();
-    throw error;
-  } finally {
-    session.endSession();
-  }
+export const reduceFineAndCommission = async (batchCode, reduceFineOf, reduceCommissionOf) => {
+  return FinesModel.findOneAndUpdate(
+    { batchCode },
+    {
+      $inc: { 'fines.$[ofFine].fine': -10, 'fines.$[ofCommission].commission': -5 },
+      $set: { 'fines.$[ofFine].lastAssignedBy': null },
+    },
+    { arrayFilters: [{ 'ofFine.studentId': reduceFineOf }, { 'ofCommission.studentId': reduceCommissionOf }], new: true },
+  );
 };

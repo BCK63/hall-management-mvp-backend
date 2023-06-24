@@ -8,6 +8,7 @@ const batchSchema = new Schema({
   },
   trainer: {
     type: Schema.Types.ObjectId,
+    // type: String,
     ref: 'admins',
     required: true,
   },

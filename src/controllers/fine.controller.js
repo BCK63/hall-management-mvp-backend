@@ -11,7 +11,7 @@ export const getFineTable = catchAsync(async (req, res) => {
 
 export const assignFine = catchAsync(async (req, res) => {
   const { assignedTo, assignedBy } = req.body;
-  const { batchCode } = req.parms;
+  const { batchCode } = req.params;
   // TODO: validation
   const fineTable = await fineServices.assignFine(batchCode, assignedTo, assignedBy);
   res.json(success('fine assigned', { fineTable }));

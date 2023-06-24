@@ -21,7 +21,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/layouts', layoutRoutes);
 app.use('/api/v1/batches', batchRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('api/v1/fines', finesRoutes);
+app.use('/api/v1/fines', finesRoutes);
 
 app.use('*', NotFound);
 

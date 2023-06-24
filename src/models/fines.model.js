@@ -16,7 +16,7 @@ const fines = new Schema({
     required: true,
     default: 0,
   },
-  lastAssignedBy: [Schema.Types.ObjectId],
+  lastAssignedBy: Schema.Types.ObjectId,
 }, { _id: false, timestamps: true });
 
 const fineSchema = new Schema({
