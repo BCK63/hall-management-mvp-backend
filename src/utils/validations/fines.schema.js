@@ -12,11 +12,13 @@ const assignFineSchema = Joi.object({
     'any.required': 'params batchCode is required',
     'string.min': 'Batch code should be at least 5 characters long',
   }),
-  assignedTo: Joi.string().required().messages({
+  assignedTo: Joi.string().required().length(24).messages({
     'any.required': 'assignedTo field is required',
+    'string.length': 'Provided id is not valid for assignedTo field',
   }),
-  assignedBy: Joi.string().required().messages({
+  assignedBy: Joi.string().required().length(24).messages({
     'any.required': 'assignedBy field is required',
+    'string.length': 'Provided id is not valid for assignedBy field',
   }),
 });
 
@@ -25,11 +27,10 @@ const reduceFineSchema = Joi.object({
     'any.required': 'params batchCode is required',
     'string.min': 'Batch code should be at least 5 characters long',
   }),
-  reduceFineOf: Joi.string().required().messages({
+  reduceFineOf: Joi.string().required().length(24).messages({
     'any.required': 'reduceFineOf field is required',
+    'string.length': 'Provided id is not valid for reduceFineOf field',
   }),
 });
 
 export { getFineTableSchema, assignFineSchema, reduceFineSchema };
-
-export const sample = {};
