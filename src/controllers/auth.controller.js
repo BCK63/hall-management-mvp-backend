@@ -1,5 +1,6 @@
 import { adminLoginService, adminSignupService } from '../services/admin.auth.services.js';
 import { refreshToken, studentLogin, studentSignup } from '../services/auth.services.js';
+import UnAuthorizedException from '../utils/errors/UnAuthorized.js';
 import BadRequest from '../utils/errors/badRequest.js';
 import catchAsync from '../utils/errors/catchAsync.js';
 import { success } from '../utils/responseApi.js';
@@ -26,7 +27,9 @@ export const signup = catchAsync(async (req, res) => {
 });
 
 export const tokenRefresh = catchAsync(async (req, res) => {
-  const refreshTokenFromHeaders = req.headers.authorization.replace('Bearer', '').replace(/"/g, '').trim();
+  let refreshTokenFromHeaders = req.headers.authorization;
+  if (!refreshTokenFromHeaders) throw new UnAuthorizedException();
+  refreshTokenFromHeaders = refreshTokenFromHeaders.replace('Bearer', '').replace(/"/g, '').trim();
   const token = await refreshToken(refreshTokenFromHeaders);
   res.status(200).json(success('OK', { token }));
 });
@@ -40,6 +43,9 @@ export const adminLogin = catchAsync(async (req, res) => {
 });
 
 export const adminSignup = catchAsync(async (req, res) => {
+  const { name, email, password } = req.body;
+  const { error } = schema.adminSignupSchema.validate({ name, email, password });
+  if (error) throw new BadRequest(error.message);
   await adminSignupService(req.body);
   res.status(200).json(success('OK'));
 });

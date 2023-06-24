@@ -28,7 +28,7 @@ export const studentSignup = async (student) => {
   await finesRepo.addStudentToFineTable(newStudent.batch, newStudent._id, newStudent.name);
   return newStudent;
 };
-
+// todo:update refresh token for admin
 export const refreshToken = async (token) => {
   const decryptedToken = decrypt(token);
   const { tokenType, user } = getToken(decryptedToken);

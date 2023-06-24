@@ -15,7 +15,7 @@ export const adminInvite = async (email, admin) => {
   }
   const inviteToken = crypto.randomBytes(64).toString('hex');
   await createTempAdmin({ email, inviteToken });
-  await generateEmail(email, 'x has been invited you to become a brospeaks admin', `this will be a sample message that will be sent to the user ${inviteToken} by ${admin}`);
+  await generateEmail(email, `Invite from ${process.env.APP_NAME}`, `Hello ${email}, ${admin} has invited you to be a part of ${process.env.APP_NAME}, Click the on the link to complete the process. https://brospeakapp.page.link/start/${inviteToken}`);
 };
 
 export const adminLoginService = async (email, password) => {
@@ -32,7 +32,9 @@ export const adminSignupService = async ({
   name, email, password, token,
 }) => {
   const isExist = await findTempAdminByEmail(email);
-  if (!isExist) throw new BadRequest('User not found try again...');
+  if (!isExist) {
+    throw new BadRequest('User not found try again...');
+  }
   if (token !== isExist.inviteToken) throw new BadRequest('Invalid invite request, Please try again...');
   const hashPassword = await bcrypt.hash(password, 10);
   await updateTempAdmin(email, name, hashPassword);

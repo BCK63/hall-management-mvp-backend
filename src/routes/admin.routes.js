@@ -10,7 +10,7 @@ router.get('/pending', controller.allPendingAdmin);
 
 router.post('/invite', controller.inviteAdmin);
 
-// isPendingApproval
-// admin token auth middleware
+router.put('/approve', controller.approveAdminRequest);
+router.put('/reject', controller.rejectAdminRequest);
 
 export default router;
