@@ -4,7 +4,7 @@ export const createFineTable = (batchCode) => {
   return FinesModel.create({ batchCode, fines: [] });
 };
 
-export const addStudentToFineTable = (batchCode, studentId) => {
+export const addStudentToFineTable = (batchCode, studentId, studentName) => {
   return FinesModel.findOneAndUpdate(
     {
       batchCode,
@@ -12,7 +12,7 @@ export const addStudentToFineTable = (batchCode, studentId) => {
     {
       $addToSet: {
         fines: {
-          studentId, fine: 0, commission: 0, lastAssignedBy: null,
+          studentName, studentId, fine: 0, commission: 0, lastAssignedBy: null,
         },
       },
     },

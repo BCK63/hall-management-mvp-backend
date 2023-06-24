@@ -6,6 +6,10 @@ const fines = new Schema({
     ref: 'students',
     required: true,
   },
+  studentName: {
+    type: String,
+    required: true,
+  },
   fine: {
     type: Number,
     required: true,

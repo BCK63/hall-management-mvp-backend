@@ -25,7 +25,7 @@ export const studentSignup = async (student) => {
   if (isExist) throw new BadRequest('Email already exist with another user');
   const hashPassword = hashSync(student.password, 10);
   const newStudent = await createNewStudent({ ...student, hashPassword, password: null });
-  await finesRepo.addStudentToFineTable(newStudent.batch, newStudent._id);
+  await finesRepo.addStudentToFineTable(newStudent.batch, newStudent._id, newStudent.name);
   return newStudent;
 };
 
