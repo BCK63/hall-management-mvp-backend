@@ -11,10 +11,11 @@ const tempAdminSchema = model('tempAdmin', new Schema({
   },
   hashPassword: {
     type: String,
+    select: false,
   },
   status: {
     type: String,
-    enum: ['PENDING', 'REJECTED', 'APPROVED'],
+    enum: ['PENDING', 'REJECTED'],
     default: 'PENDING',
   },
   inviteToken: {

@@ -20,7 +20,8 @@
         "arrow-parens":"off",
         "arrow-body-style":"off",
         "max-len":"off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "no-underscore-dangle": "off"
     }
     
 }
