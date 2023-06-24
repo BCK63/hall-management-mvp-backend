@@ -1,15 +1,17 @@
 import { createNewBatch } from '../repositories/batch.repository.js';
+import * as fineRepo from '../repositories/fines.repository.js';
 import ConflictException from '../utils/errors/conflictException.js';
 
-export const batchCreation = async (batch) => {
+export const createBatch = async (createBatchDTO) => {
   try {
-    const response = await createNewBatch({ ...batch });
-    return response;
+    const newBatch = await createNewBatch({ ...createBatchDTO });
+    await fineRepo.createFineTable(newBatch.batchCode);
+    return newBatch;
   } catch (error) {
     if (error.code === 11000) {
       throw new ConflictException('batch already exists');
     }
-    throw new Error(error);
+    throw error;
   }
 };
 

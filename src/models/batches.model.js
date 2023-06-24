@@ -8,6 +8,7 @@ const batchSchema = new Schema({
   },
   trainer: {
     type: Schema.Types.ObjectId,
+    // type: String,
     ref: 'admins',
     required: true,
   },
@@ -19,6 +20,16 @@ const batchSchema = new Schema({
   approvedBy: {
     type: Schema.Types.ObjectId,
     ref: 'admins',
+  },
+  isFineEnabled: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
+  isCommissionEnabled: {
+    type: Boolean,
+    default: true,
+    required: true,
   },
 });
 

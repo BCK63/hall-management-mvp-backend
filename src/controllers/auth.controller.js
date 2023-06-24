@@ -21,8 +21,8 @@ export const signup = catchAsync(async (req, res) => {
     name, email, password, batch,
   });
   if (error) throw new BadRequest(error.message);
-  await studentSignup(value);
-  res.status(201).json(success('CREATED'));
+  const newStudent = await studentSignup(value);
+  res.status(201).json(success('CREATED', { newStudent }));
 });
 
 export const tokenRefresh = catchAsync(async (req, res) => {

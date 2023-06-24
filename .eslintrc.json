@@ -19,8 +19,8 @@
         "consistent-return": "off",
         "arrow-parens":"off",
         "arrow-body-style":"off",
-        "no-param-reassign": "off",
-        "max-len" : "off"
+        "max-len":"off",
+        "no-param-reassign": "off"
     }
     
 }
