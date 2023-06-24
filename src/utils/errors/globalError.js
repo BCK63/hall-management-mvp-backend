@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export default function globalErrorHandler(error, req, res, next) {
+export default function GlobalErrorHandler(error, req, res, next) {
   res.status(error?.status || 500).json({
     error: {
       status: error?.status || 500,
