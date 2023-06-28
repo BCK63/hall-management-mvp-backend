@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import tokenAuthentication from '../middlewares/auth.middleware.js';
+import { tokenAuthentication } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 router.use(tokenAuthentication);

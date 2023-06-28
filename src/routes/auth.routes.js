@@ -6,4 +6,7 @@ const router = Router();
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
 router.post('/refresh', controller.tokenRefresh);
+
+router.post('/admin/login', controller.adminLogin);
+router.post('/admin/signup', controller.adminSignup);
 export default router;

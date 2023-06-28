@@ -20,6 +20,11 @@ const layoutModel = new Schema({
     type: [slotSchema],
     required: true,
   },
+  isActivated: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 export default model('layouts', layoutModel);

@@ -12,6 +12,7 @@ const adminSchema = new Schema({
   hashPassword: {
     type: String,
     required: true,
+    select: false,
   },
 });
 
