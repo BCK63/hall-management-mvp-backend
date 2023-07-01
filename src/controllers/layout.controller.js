@@ -1,6 +1,8 @@
 import * as layoutServices from '../services/layout.services.js';
 import catchAsync from '../utils/errors/catchAsync.js';
 import { success } from '../utils/responseApi.js';
+import { changeActiveLayoutSchema } from '../utils/validations/layout.schema.js';
+import validate from '../utils/validator.js';
 
 export const createLayout = catchAsync(async (req, res) => {
   const { name, slots } = req.body;
@@ -30,4 +32,11 @@ export const getLayout = catchAsync(async (req, res) => {
   const { layoutId } = req.params;
   const layout = await layoutServices.getLayout(layoutId);
   res.json(success('layout', { layout }));
+});
+
+export const changeActiveLayout = catchAsync(async (req, res) => {
+  const { layoutId } = req.params;
+  const values = validate(changeActiveLayoutSchema, { layoutId });
+  const response = layoutServices.changeActiveLayout(values.layoutId);
+  res.json(success('changed active layout', { response }));
 });

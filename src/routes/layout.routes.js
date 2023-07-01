@@ -14,4 +14,6 @@ router
   .put(ctrl.updateLayout)
   .delete(ctrl.deleteLayout);
 
+router.patch('/:layoutId/activate', ctrl.changeActiveLayout);
+
 export default router;
