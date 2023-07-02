@@ -6,6 +6,8 @@ import adminRoutes from './routes/admin.routes.js';
 import layoutRoutes from './routes/layout.routes.js';
 import batchRoutes from './routes/batch.routes.js';
 import userRoutes from './routes/user.routes.js';
+import bookingRoutes from './routes/booking.routes.js';
+import finesRoutes from './routes/fines.routes.js';
 import globalErrorHandler from './utils/errors/globalError.js';
 import NotFound from './utils/errors/404.js';
 
@@ -22,6 +24,8 @@ app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/layouts', layoutRoutes);
 app.use('/api/v1/batches', batchRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/fines', finesRoutes);
 
 app.use('*', NotFound);
 

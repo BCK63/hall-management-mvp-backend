@@ -11,3 +11,5 @@ export const updateLayout = async (id, name, slots) => {
 export const deleteLayout = async (id) => layoutRepo.deleteLayoutById(id);
 
 export const getLayout = async (id) => layoutRepo.getLayoutById(id);
+
+export const changeActiveLayout = async (id) => layoutRepo.changeActiveLayout(id);
