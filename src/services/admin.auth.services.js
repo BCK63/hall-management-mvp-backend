@@ -15,7 +15,7 @@ export const adminInvite = async (email, admin) => {
   }
   const inviteToken = crypto.randomBytes(64).toString('hex');
   await createTempAdmin({ email, inviteToken });
-  await generateEmail(email, `Invite from ${process.env.APP_NAME}`, `Hello ${email}, ${admin} has invited you to be a part of ${process.env.APP_NAME}, Click the on the link to complete the process. https://brospeakapp.page.link/start/${inviteToken}`);
+  await generateEmail(email, `Invite from ${process.env.APP_NAME}`, `Hello ${email}, ${admin} has invited you to be a part of ${process.env.APP_NAME}, Click the on the link to complete the process. https://brospeakapp.page.link/splash?id=${inviteToken}`);
 };
 
 export const adminLoginService = async (email, password) => {
