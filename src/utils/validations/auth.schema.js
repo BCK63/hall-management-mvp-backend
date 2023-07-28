@@ -40,6 +40,9 @@ const schema = {
     name: Joi.string().required().messages({
       'any.required': 'Name is required',
     }),
+    token: Joi.string().required().messages({
+      'any.required': 'Invitation token is required',
+    }),
   }),
 
 };

@@ -43,8 +43,18 @@ export const adminLogin = catchAsync(async (req, res) => {
 });
 
 export const adminSignup = catchAsync(async (req, res) => {
-  const { name, email, password } = req.body;
-  const { error } = schema.adminSignupSchema.validate({ name, email, password });
+  const {
+    name,
+    email,
+    password,
+    token,
+  } = req.body;
+  const { error } = schema.adminSignupSchema.validate({
+    name,
+    email,
+    password,
+    token,
+  });
   if (error) throw new BadRequest(error.message);
   await adminSignupService(req.body);
   res.status(200).json(success('OK'));
